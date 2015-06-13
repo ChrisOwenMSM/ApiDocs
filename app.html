@@ -101,12 +101,19 @@
                     <h3 class="panel-title">Results - Complete {{results.providers.complete.length}} - Remaining {{results.providers.inProgress.length}}</h3>
                 </div>
                 <div class="panel-body">
-                    <table>
-                        <tr data-ng-repeat="result in results.results">
-                            <td><img data-ng-src="result.brandLogo"/> </td>
-                            <td>{{result.brandName}} </td>
-                            <td>{{result.quote.annualPrice}}</td>
-                        </tr>
+                    <table table table-striped>
+                        <thead>
+                            <th>Logo</th>
+                            <th>Name</th>
+                            <th>Annual Price</th>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="result in results.results">
+                                <td scope="row"><img data-ng-src="{{result.brandLogo}}"/> </td>
+                                <td>{{result.brandName}} </td>
+                                <td>{{result.quote.annualPrice}}</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>

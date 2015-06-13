@@ -152,7 +152,7 @@
                 $scope.getResults = function(url) {
                     $http.get(url).
                             success(function(data, status, headers, config) {
-                                $scope.results = data.results;
+                                $scope.results = data;
                                 if(data.providers.inProgress.length > 0) {
                                     $timeout( function(){ $scope.getResults(url); }, 5000)
                                 }

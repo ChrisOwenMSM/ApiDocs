@@ -163,7 +163,7 @@
                 };
 
                 $scope.showRequest = function(providerId) {
-                    $http.get("/gb/partners/aggregation/v1/report/debug?apikey="+$.QueryString["apikey"]).
+                    $http.get("/gb/partners/aggregation/v1/report/debug/"+$scope.enquiryId +"?apikey="+$.QueryString["apikey"]).
                             success(function(data, status, headers, config) {
 
 

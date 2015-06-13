@@ -71,9 +71,7 @@
         <h3 class="panel-title">Sample App</h3>
     </div>
     <div class="panel-body">
-        <p>The MSM partner API allows to access the insurance applications that power the moneysupermarket.com website.</p>
-        <p>It is designed to aid automated and exploratory testing of our partner mappings, without the need to use the website.</p>
-        <p>The API allows you to submit requests to our home and car insurance products and validate the results that would appear on our website.</p>
+        <p>This is a sample application written in html and javascript</p>
     </div>
 
 </div>
@@ -100,8 +98,9 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Results - Complete {{results.providers.complete.length}} - Remaining {{results.providers.inProgress.length}}</h3>
                 </div>
+
                 <div class="panel-body">
-                    <table table table-striped>
+                    <table class="table table-striped" data-ng-show="results.results.length > 0">
                         <thead>
                             <th>Logo</th>
                             <th>Name</th>
@@ -112,9 +111,17 @@
                                 <td scope="row"><img data-ng-src="{{result.brandLogo}}"/> </td>
                                 <td>{{result.brandName}} </td>
                                 <td>{{result.quote.annualPrice}}</td>
+                                <td><button type="button" class="btn btn-sm btn-success" data-ng-click="showRequest()">Show XML Request</button> </td>
+                                <td><button type="button" class="btn btn-sm btn-success" data-ng-click="showResponse()">Show XML Response</button> </td>
                             </tr>
                         </tbody>
                     </table>
+                    <div class="alert alert-warning alert-dismissible" role="alert" data-ng-show="request != null">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>{{request.json.request.uri}}</strong>
+                        <br/>
+                        {{request.json.request.body}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -140,7 +147,7 @@
 
                 $scope.submitForm = function() {
 
-                    $http.post('/gb/partners/aggregation/v1/home-insurance/enquiries?apikey='+$.QueryString["apikey"], $scope.enquiry).
+                    $http.post('/gb/partners/aggregation/v1/home-insurance/enquiries?apikey='+$.QueryString["apikey"], $scope.enquiry, {headers: {"X_Debug-Enquiry": true}}).
                             success(function(data, status, headers, config) {
                                 if(data.success == true) {
                                     $scope.enquiryId = data.enquiryId;
@@ -154,6 +161,22 @@
                                 alert(status);
                             });
                 };
+
+                $scope.showRequest = function(providerId) {
+                    $http.get("/gb/partners/aggregation/v1/report/debug?apikey="+$.QueryString["apikey"]).
+                            success(function(data, status, headers, config) {
+
+
+                                $scope.request = data.providers[providerId].filter(function(el){ return (el.type != "request"); })
+
+
+
+
+                            }).
+                            error(function(data, status, headers, config) {
+                                alert(status);
+                            });
+                }
 
 
                 $scope.getResults = function(url) {

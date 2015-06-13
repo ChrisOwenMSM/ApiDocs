@@ -147,7 +147,7 @@
 
                 $scope.submitForm = function() {
 
-                    $http.post('/gb/partners/aggregation/v1/home-insurance/enquiries?apikey='+$.QueryString["apikey"], $scope.enquiry, {headers: {"X_Debug-Enquiry": true}}).
+                    $http.post('/gb/partners/aggregation/v1/home-insurance/enquiries?apikey='+$.QueryString["apikey"], $scope.enquiry, {headers: {"X-Debug-Enquiry": true}}).
                             success(function(data, status, headers, config) {
                                 if(data.success == true) {
                                     $scope.enquiryId = data.enquiryId;

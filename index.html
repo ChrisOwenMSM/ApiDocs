@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Theme Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+    <![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+</head>
+
+<body role="document">
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">MSM Partner API</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#security">Security</a></li>
+                <li><a href="#restrictions">Restrictions</a></li>
+                <li><a href="#environments">Environments</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Using The API <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#requests">Requests</a></li>
+                        <li><a href="#response">Response</a></li>
+                        <li><a href="#">Reference Data</a></li>
+                        <li><a href="#">Schemas</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container theme-showcase" role="main">
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+
+    <a id="introduction"></a>
+    <div class="panel panel-primary" style="margin-top:80px">
+        <div class="panel-heading">
+            <h3 class="panel-title">Introduction</h3>
+        </div>
+        <div class="panel-body">
+            <p>The MSM partner API allows to access the insurance applications that power the moneysupermarket.com website.</p>
+            <p>It is designed to aid automated and exploratory testing of our partner mappings, without the need to use the website.</p>
+            <p>The API allows you to submit requests to our home and car insurance products and validate the results that would appear on our website.</p>
+        </div>
+
+    </div>
+    <a id="security"></a>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Security</h3>
+        </div>
+        <div class="panel-body">
+            <p>To use the api, you'll need an api key which will be issued to you by moneysupermarket.
+            All requests to the API, including to help pages should include this as a query string parameter.</p>
+            <p>For example <strong>?apikey=[your api key]</strong></p>
+            <p>Your apikey also helps defined which brands you will search for. By default the api will only support a sub-set of our insurance panel</p>
+        </div>
+    </div>
+    <a id="restrictions"></a>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Restrictions</h3>
+        </div>
+        <div class="panel-body">
+            <p>Your apikey has been throttled to no more than 30 api requests per minute. This includes both new requests and results queries.</p>
+        </div>
+    </div>
+    <a id="environments"></a>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Environments</h3>
+        </div>
+        <div class="panel-body">
+            <p>To use the api, you'll need an api key which will be issued to you by moneysupermarket.
+                All requests to the API, including to help pages should include this as a query string parameter.</p>
+            <p>For example <strong>?apikey=[your api key]</strong></p>
+            <p>Your apikey also helps defined which brands you will search for. By default the api will only support a sub-set of our insurance panel</p>
+        </div>
+    </div>
+    <a id="requests"></a>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Submitting a request</h3>
+        </div>
+        <div class="panel-body">
+            Request for either a car or home insurance quote is done by submitting a HTTP Post Request.
+
+            <div class="well">
+                <p><strong>HTTP Method:</strong> POST</p>
+                <p><strong>Content-Type:</strong> application/json</p>
+                <p><strong>URL:</strong> http://moneysupermarket-staging.apigee.net/gb/aggregation/v1/partners/home-insurance/enquiries?apikey=[your apikey]</p>
+                <p>Or...</p>
+                <p><strong>URL:</strong> http://moneysupermarket-staging.apigee.net/gb/aggregation/v1/partners/car-insurance/enquiries?apikey=[your apikey]</p>
+            </div>
+
+            <p>You'll also need to supply a JSON body which contains the risk profile you want to search on.</p>
+            <p>Examples for car and home ae below - you can use these to test everything is working correctly - though ensure the policy start date is in the future</p>
+            <p>Full schemas and reference data lists are available below.</p>
+            <div class="well">
+                <textarea id="homeExample" cols="50" rows="25">
+
+                </textarea>
+
+            </div>
+
+        </div>
+    </div>
+
+<a id="response"></a>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Getting Results</h3>
+    </div>
+    <div class="panel-body">
+        You can use the enquiryid returned by the first api to query for results.
+        <div class="well">
+            <p><strong>HTTP Method:</strong> GET</p>
+            <p><strong>URL:</strong> http://moneysupermarket-staging.apigee.net/gb/aggregation/v1/partners/home-insurance/enquiries/results/[enquiry id]?apikey=[your apikey]</p>
+            <p>Or...</p>
+            <p><strong>URL:</strong> http://moneysupermarket-staging.apigee.net/gb/aggregation/v1/partners/car-insurance/enquiries/results/[enquiry id]?apikey=[your apikey]</p>
+        </div>
+
+        <p>Not all providers returns instantly so on first load this response may not contain any results. Typically we continually poll for results every say, 5 seconds until all providers are complete.</p>
+        <p>A typical example is below, here provider 123 has completed but we are still waiting for results from 456 so we should hit the endpoint again in 5 seconds.</p>
+        <p>The 5 seconds is a purely arbitrary number, but it's important to bear in mind our throughput restrictions to avoid your traffic being throttled. </p>
+        <div class="well">
+            <textarea id="homeResultsExample" cols="100" rows="25">
+
+            </textarea>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <script>
+        var json = {
+        "payload": {
+        "property": {
+        "propertyTypeId": 1,
+        "propertySubTypeId": 1,
+        "address": {
+        "buildingNumber": "1",
+        "thoroughfare": "Victor Street",
+        "town": "CHESTER LE STREET",
+        "county": "County Durham",
+        "postcode": "DH3 3DP",
+        "countryCode": "GB"
+        },
+        "yearBuilt": 1970,
+        "rooms": {
+        "bedrooms": 3,
+        "bathrooms": 1,
+        "kitchens": 1,
+        "lounges": 1,
+        "otherRooms": 1
+        },
+        "areTreesCloseBy": false,
+        "percentageFlatRoofId": 1,
+        "ownershipTypeId": 6,
+        "purchasedDate": "2002-12-10",
+        "isPurchased": true,
+        "yearsLivedInProperty": 4,
+        "occupantTypeId": 1,
+        "numOfAdults": 2,
+        "numOfChildren": 0,
+        "dailyOccupationPeriodId": 1,
+        "maximumUnoccupiedPeriodId": 1,
+        "hasSmokers": false,
+        "businessUsagesId": 1,
+        "roofConstructionTypeId": 1,
+        "wallConstructionTypeId": 1,
+        "hasSufferedFromGroundMovement": false,
+        "hasBeenAffectedFromFlooding": false,
+        "protectedStatusId": 1,
+        "occupancyStatusId": 1,
+        "isForSale": false,
+        "isUnderPinned": false,
+        "buildingFloorTypeId": 1,
+        "hasCrackedWalls": false,
+        "isUndergoingBuildingWork": false,
+        "isOver400mFromWater": true,
+        "estimatedRebuildCost": 200000,
+        "minimumRebuildCost": 150000,
+        "maximumRebuildCost": 150000,
+        "wasRebuildCalculatorUsed": true
+        },
+        "policy": {
+        "isJointPolicy": true,
+        "policyStartDate": "2015-06-22",
+        "policyTypeId": 1,
+        "paymentTypeId": 1,
+        "buildingsExcess": 250,
+        "contentsExcess": 250,
+        "buildingsCover": {
+        "propertyValue": 260000,
+        "rebuildCost": 200000,
+        "includesAccidentalDamage": true,
+        "noClaimsYears": 5
+        },
+        "contentsCover": {
+        "totalReplacementValue": 20000,
+        "possessions": [
+        {
+        "possessionTypeId": 1,
+        "description": "Antique Item Possesion",
+        "replacementCost": 5000,
+        "coverOutsideHome": false
+        }
+        ],
+        "includesAccidentalDamage": true,
+        "otherPossessionsValue": 5000,
+        "noClaimsYears": 5
+        }
+        },
+        "claims": [
+
+        ],
+        "security": {
+        "neighbourhoodWatchStatusId": 1,
+        "doorLockTypeId": 2,
+        "patioDoorsLockTypeId": 1,
+        "otherDoorsLockTypeId": 1,
+        "hasWindowLocks": true,
+        "smokeAlarmCount": 3,
+        "hasSafe": true,
+        "alarm": {
+        "hasAlarm": true,
+        "isAlarmMaintained": true,
+        "isAlarmMonitored": true
+        }
+        },
+        "policyHolder": {
+        "name": "joe",
+        "surname": "smith",
+        "genderId": 1,
+        "dateOfBirth": "1978-12-04",
+        "maritalStatusId": 2,
+        "mainOccupation": {
+        "businessSectorId": 2,
+        "occupationId": 9,
+        "employmentStatus": 3
+        },
+        "ukResidentSinceBirth": true,
+        "telephone": "01111111111"
+        },
+        "jointPolicyHolder": {
+        "name": "joanne",
+        "surname": "smith",
+        "genderId": 2,
+        "dateOfBirth": "1978-12-04",
+        "maritalStatusId": 2,
+        "relationshipWithPolicyHolderId": 14,
+        "mainOccupation": {
+        "businessSectorId": 8,
+        "occupationId": 27,
+        "employmentStatus": 3
+        },
+        "ukResidentSinceBirth": true}}};
+
+    var homeResultsJSON = {"providers":{"complete":["123"],"inProgress":["456"]},"currency":"GBP","results":[{"resultId":"d86220b7-cdd7-4d05-9d5e-35f65de3d46b","enquiryId":"ffe4b4f5-f275-4a15-9088-3e4184b323c3","providerId":"54773e75ffa0ec630b2d71af","brandId":"54773e878cce5fc0542a7b6b","quote":{"@class":"com.msm.aggregation.data.entity.homeinsurance.HomeInsuranceQuote","annualPrice":169.11,"deepLink":{"deepLinkTypeId":1,"url":"https://someurl","formElements":[]},"excesses":{"contents":{"voluntary":250,"compulsory":100,"total":350},"buildings":{"voluntary":250,"compulsory":100,"total":350},"other":null},"expired":null,"extras":[{"extraTypeId":2,"included":false,"price":0,"description":"Accidental damage to home entertainment equipment","priority":0,"additionalText":null,"static":false},{"extraTypeId":2,"included":false,"price":0,"description":"Accidental damage to home entertainment equipment","priority":0,"additionalText":null,"static":false},{"extraTypeId":3,"included":false,"price":0,"description":"Accidental damage to buildings","priority":0,"additionalText":null,"static":false},{"extraTypeId":8,"included":true,"price":0,"description":"Cover for Christmas and wedding gifts","priority":0,"additionalText":null,"static":false},{"extraTypeId":11,"included":true,"price":0,"description":"Damage to underground pipes, cables and tanks","priority":0,"additionalText":null,"static":false},{"extraTypeId":13,"included":true,"price":0,"description":"Emergency helpline","priority":0,"additionalText":null,"static":false},{"extraTypeId":19,"included":true,"price":0,"description":"Home emergency cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":20,"included":false,"price":0,"description":"Identity theft helpline","priority":0,"additionalText":null,"static":false},{"extraTypeId":21,"included":false,"price":0,"description":"Inflation protection","priority":0,"additionalText":null,"static":false},{"extraTypeId":25,"included":true,"price":0,"description":"Legal cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":26,"included":false,"price":0,"description":"Legal helpline","priority":0,"additionalText":null,"static":false},{"extraTypeId":28,"included":true,"price":0,"description":"Loss of oil","priority":0,"additionalText":null,"static":false},{"extraTypeId":30,"included":true,"price":0,"description":"Loss of water","priority":0,"additionalText":null,"static":false},{"extraTypeId":33,"included":true,"price":0,"description":"Moving home","priority":0,"additionalText":null,"static":false},{"extraTypeId":34,"included":true,"price":0,"description":"New for old","priority":0,"additionalText":null,"static":false},{"extraTypeId":35,"included":true,"price":0,"description":"No claims discount","priority":0,"additionalText":null,"static":false},{"extraTypeId":40,"included":false,"price":0,"description":"Personal possessions (away from home cover)","priority":0,"additionalText":null,"static":false},{"extraTypeId":43,"included":true,"price":0,"description":"Selling your home","priority":0,"additionalText":null,"static":false},{"extraTypeId":44,"included":true,"price":0,"description":"Site clearance and building fees","priority":0,"additionalText":null,"static":false},{"extraTypeId":48,"included":true,"price":0,"description":"UK call centres","priority":0,"additionalText":null,"static":false},{"extraTypeId":5,"included":true,"price":0,"description":"Alternative accommodation","priority":0,"additionalText":null,"static":false},{"extraTypeId":41,"included":true,"price":0,"description":"Replacement locks cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":10,"included":true,"price":0,"description":"Damage from emergency entries","priority":0,"additionalText":null,"static":false},{"extraTypeId":37,"included":true,"price":0,"description":"Owner's liability cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":46,"included":true,"price":0,"description":"Trace and access cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":6,"included":true,"price":0,"description":"Bicycle cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":50,"included":true,"price":0,"description":"Sports and Camping Equipment","priority":0,"additionalText":null,"static":false},{"extraTypeId":36,"included":true,"price":0,"description":"Office equipment","priority":0,"additionalText":null,"static":false},{"extraTypeId":9,"included":true,"price":0,"description":"Credit card cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":15,"included":true,"price":0,"description":"Frozen food cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":16,"included":true,"price":0,"description":"Garden cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":18,"included":true,"price":0,"description":"Guests' belongings cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":31,"included":true,"price":0,"description":"Money cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":7,"included":true,"price":0,"description":"Contents at university/college","priority":0,"additionalText":null,"static":false},{"extraTypeId":45,"included":true,"price":0,"description":"Tenant's liability cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":22,"included":true,"price":0,"description":"Items in garage cover","priority":0,"additionalText":null,"static":false}],"monthlyPaymentsDeposit":36.31,"monthlyPrice":13.73,"numberOfMonthlyPayments":11,"retrievalPassword":null,"retrievalReference":"JS50143818","contentsSumInsured":"75000","buildingsSumInsured":"500000","coverTypeId":1,"easyCheckoutDeepLink":null,"underwriter":"Policy Expert Home Select"},"brandName":"Policy Expert","brandLogo":"https://www.moneysupermarket.com/home-insurance/img/logo/polexhome.gif","brandPhoneNumber":"0844 776 0672","brandHasMobileOptimisedSite":false,"callCentreHoursMonFri":"Monday to Thursday 9am - 8pm,  Friday 9am - 6pm, Saturday 9am - 2pm, Sunday Closed","callCentreHoursSat":null,"callCentreHoursSun":null,"error":null,"legacyBrandId":1366,"ratings":[{"name":"claims_experience_score","score":4},{"name":"number_of_claims_experience_reviews","score":112},{"name":"quality_score","score":85},{"name":"legal_cover","score":4},{"name":"accidental_damage_buildings","score":4},{"name":"accidental_damage_contents","score":5},{"name":"home_emergency_cover","score":4}],"strapline":"You could win in the Policy Expert prize draw T&Cs apply","decal":"special_offer","highlights":"Policy Expert is an independent broker that aims to tailor cover to individual specifications","topTip":null,"apply":{"active":true,"desktop":true,"mobile":true,"easyCheckout":false},"preferToPhone":{"desktop":true,"mobile":false,"requiresDeepLink":false},"created":"2015-06-11T19:16:44.496Z","expiry":"2015-06-22T00:00:00.000Z"}],"additionalData":null};
+
+    $("#homeExample").val(JSON.stringify(json,null,4));
+    $("#homeResultsExample").val(JSON.stringify(homeResultsJSON,null,4));
+</script>
+
+
+</div> <!-- /container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html>

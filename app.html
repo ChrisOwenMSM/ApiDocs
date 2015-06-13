@@ -138,7 +138,7 @@
                                 if(data.success == true) {
                                     $scope.enquiryId = data.enquiryId;
                                     $scope.resultsUrl = data.url;
-                                    $timeout( function(){ $scope.getResults(url); }, 5000)
+                                    $timeout( function(){ $scope.getResults($scope.resultsUrl); }, 5000)
                                 }
                             }).
                             error(function(data, status, headers, config) {

@@ -94,7 +94,7 @@
 
         </div><!-- /.col-sm-4 -->
         <div class="col-sm-8">
-            <div class="panel panel-success">
+            <div class="panel panel-success" data-ng-show="enquiryId">
                 <div class="panel-heading">
                     <h3 class="panel-title">Results - Complete {{results.providers.complete.length}} - Remaining {{results.providers.inProgress.length}}</h3>
                 </div>
@@ -116,13 +116,8 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="alert alert-warning alert-dismissible" role="alert" data-ng-show="request != null">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <strong>{{request.json.request.uri}}</strong>
-                        <br/>
-                        {{request.json.request.body}}
-                    </div>
                 </div>
+
             </div>
         </div>
 
@@ -161,23 +156,6 @@
                                 alert(status);
                             });
                 };
-
-                $scope.showRequest = function(providerId) {
-                    $http.get("/gb/partners/aggregation/v1/report/debug/"+$scope.enquiryId +"?apikey="+$.QueryString["apikey"]).
-                            success(function(data, status, headers, config) {
-
-
-                                $scope.request = data.providers[providerId].filter(function(el){ return (el.type != "request"); })
-
-
-
-
-                            }).
-                            error(function(data, status, headers, config) {
-                                alert(status);
-                            });
-                }
-
 
                 $scope.getResults = function(url) {
                     $http.get(url).
@@ -246,7 +224,7 @@
                         },
                         "policy": {
                             "isJointPolicy": true,
-                            "policyStartDate": "2015-06-22",
+                            "policyStartDate": new Date().toISOString().slice(0,10),
                             "policyTypeId": 1,
                             "paymentTypeId": 1,
                             "buildingsExcess": 250,

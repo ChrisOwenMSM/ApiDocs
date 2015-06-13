@@ -63,18 +63,121 @@
 
 <div class="container theme-showcase" role="main"  ng-controller="SampleAppController">
 
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+
+    <a id="introduction"></a>
+    <div class="panel panel-primary" style="margin-top:80px">
+        <div class="panel-heading">
+            <h3 class="panel-title">Introduction</h3>
+        </div>
+        <div class="panel-body">
+            <p>The MSM partner API allows to access the insurance applications that power the moneysupermarket.com website.</p>
+            <p>It is designed to aid automated and exploratory testing of our partner mappings, without the need to use the website.</p>
+            <p>The API allows you to submit requests to our home and car insurance products and validate the results that would appear on our website.</p>
+        </div>
+
+    </div>
+    <a id="security"></a>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Security</h3>
+        </div>
+        <div class="panel-body">
+            <p>To use the api, you'll need an api key which will be issued to you by moneysupermarket.
+                All requests to the API, including to help pages should include this as a query string parameter.</p>
+            <p>For example <strong>?apikey=[your api key]</strong></p>
+            <p>Your apikey also helps defined which brands you will search for. By default the api will only support a sub-set of our insurance panel</p>
+        </div>
+    </div>
+    <a id="restrictions"></a>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Restrictions</h3>
+        </div>
+        <div class="panel-body">
+            <p>Your apikey has been throttled to no more than 30 api requests per minute. This includes both new requests and results queries.</p>
+        </div>
+    </div>
+    <a id="environments"></a>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Environments</h3>
+        </div>
+        <div class="panel-body">
+            <p>To use the api, you'll need an api key which will be issued to you by moneysupermarket.
+                All requests to the API, including to help pages should include this as a query string parameter.</p>
+            <p>For example <strong>?apikey=[your api key]</strong></p>
+            <p>Your apikey also helps defined which brands you will search for. By default the api will only support a sub-set of our insurance panel</p>
+        </div>
+    </div>
+    <a id="requests"></a>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Submitting a request</h3>
+        </div>
+        <div class="panel-body">
+            Request for either a car or home insurance quote is done by submitting a HTTP Post Request.
+
+            <div class="well">
+                <p><strong>HTTP Method:</strong> POST</p>
+                <p><strong>Content-Type:</strong> application/json</p>
+                <p><strong>URL:</strong> http://moneysupermarket-staging.apigee.net/gb/aggregation/v1/partners/home-insurance/enquiries?apikey=[your apikey]</p>
+                <p>Or...</p>
+                <p><strong>URL:</strong> http://moneysupermarket-staging.apigee.net/gb/aggregation/v1/partners/car-insurance/enquiries?apikey=[your apikey]</p>
+            </div>
+
+            <p>You'll also need to supply a JSON body which contains the risk profile you want to search on.</p>
+            <p>Examples for car and home ae below - you can use these to test everything is working correctly - though ensure the policy start date is in the future</p>
+            <p>Full schemas and reference data lists are available below.</p>
+            <div class="well">
+                <textarea id="homeExample" cols="50" rows="25"  data-ng-model="enquiryPretty">
+
+                </textarea>
+
+            </div>
+
+        </div>
+    </div>
+
+    <a id="response"></a>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Getting Results</h3>
+        </div>
+        <div class="panel-body">
+            You can use the enquiryid returned by the first api to query for results.
+            <div class="well">
+                <p><strong>HTTP Method:</strong> GET</p>
+                <p><strong>URL:</strong> http://moneysupermarket-staging.apigee.net/gb/aggregation/v1/partners/home-insurance/enquiries/results/[enquiry id]?apikey=[your apikey]</p>
+                <p>Or...</p>
+                <p><strong>URL:</strong> http://moneysupermarket-staging.apigee.net/gb/aggregation/v1/partners/car-insurance/enquiries/results/[enquiry id]?apikey=[your apikey]</p>
+            </div>
+
+            <p>Not all providers returns instantly so on first load this response may not contain any results. Typically we continually poll for results every say, 5 seconds until all providers are complete.</p>
+            <p>A typical example is below, here provider 123 has completed but we are still waiting for results from 456 so we should hit the endpoint again in 5 seconds.</p>
+            <p>The 5 seconds is a purely arbitrary number, but it's important to bear in mind our throughput restrictions to avoid your traffic being throttled. </p>
+            <div class="well">
+                <textarea id="homeResultsExample" cols="100" rows="25"  data-ng-model="results">
+
+                </textarea>
+            </div>
+        </div>
+    </div>
+
+
+
 <!-- Main jumbotron for a primary marketing message or call to action -->
-
-<a id="introduction"></a>
-<div class="panel panel-primary" style="margin-top:80px">
-    <div class="panel-heading">
-        <h3 class="panel-title">Sample App</h3>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">Sample App</h3>
+        </div>
+        <div class="panel-body">
+            <p>This is a sample application written in html and javascript and demonstrates the basic interactions of the API.</p>
+            <p>This will use the current apikey to query the api, and will only function if your apikey is setup to query home insurance brands.</p>
+        </div>
     </div>
-    <div class="panel-body">
-        <p>This is a sample application written in html and javascript</p>
-    </div>
 
-</div>
 
 
     <div class="row">
@@ -111,8 +214,6 @@
                                 <td scope="row"><img data-ng-src="{{result.brandLogo}}"/> </td>
                                 <td>{{result.brandName}} </td>
                                 <td>{{result.quote.annualPrice}}</td>
-                                <td><button type="button" class="btn btn-sm btn-success" data-ng-click="showRequest()">Show XML Request</button> </td>
-                                <td><button type="button" class="btn btn-sm btn-success" data-ng-click="showResponse()">Show XML Response</button> </td>
                             </tr>
                         </tbody>
                     </table>
@@ -170,8 +271,12 @@
                             });
                 }
 
+                $scope.results = JSON.stringify({"providers":{"complete":["123"],"inProgress":["456"]},"currency":"GBP","results":[{"resultId":"d86220b7-cdd7-4d05-9d5e-35f65de3d46b","enquiryId":"ffe4b4f5-f275-4a15-9088-3e4184b323c3","providerId":"54773e75ffa0ec630b2d71af","brandId":"54773e878cce5fc0542a7b6b","quote":{"@class":"com.msm.aggregation.data.entity.homeinsurance.HomeInsuranceQuote","annualPrice":169.11,"deepLink":{"deepLinkTypeId":1,"url":"https://someurl","formElements":[]},"excesses":{"contents":{"voluntary":250,"compulsory":100,"total":350},"buildings":{"voluntary":250,"compulsory":100,"total":350},"other":null},"expired":null,"extras":[{"extraTypeId":2,"included":false,"price":0,"description":"Accidental damage to home entertainment equipment","priority":0,"additionalText":null,"static":false},{"extraTypeId":2,"included":false,"price":0,"description":"Accidental damage to home entertainment equipment","priority":0,"additionalText":null,"static":false},{"extraTypeId":3,"included":false,"price":0,"description":"Accidental damage to buildings","priority":0,"additionalText":null,"static":false},{"extraTypeId":8,"included":true,"price":0,"description":"Cover for Christmas and wedding gifts","priority":0,"additionalText":null,"static":false},{"extraTypeId":11,"included":true,"price":0,"description":"Damage to underground pipes, cables and tanks","priority":0,"additionalText":null,"static":false},{"extraTypeId":13,"included":true,"price":0,"description":"Emergency helpline","priority":0,"additionalText":null,"static":false},{"extraTypeId":19,"included":true,"price":0,"description":"Home emergency cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":20,"included":false,"price":0,"description":"Identity theft helpline","priority":0,"additionalText":null,"static":false},{"extraTypeId":21,"included":false,"price":0,"description":"Inflation protection","priority":0,"additionalText":null,"static":false},{"extraTypeId":25,"included":true,"price":0,"description":"Legal cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":26,"included":false,"price":0,"description":"Legal helpline","priority":0,"additionalText":null,"static":false},{"extraTypeId":28,"included":true,"price":0,"description":"Loss of oil","priority":0,"additionalText":null,"static":false},{"extraTypeId":30,"included":true,"price":0,"description":"Loss of water","priority":0,"additionalText":null,"static":false},{"extraTypeId":33,"included":true,"price":0,"description":"Moving home","priority":0,"additionalText":null,"static":false},{"extraTypeId":34,"included":true,"price":0,"description":"New for old","priority":0,"additionalText":null,"static":false},{"extraTypeId":35,"included":true,"price":0,"description":"No claims discount","priority":0,"additionalText":null,"static":false},{"extraTypeId":40,"included":false,"price":0,"description":"Personal possessions (away from home cover)","priority":0,"additionalText":null,"static":false},{"extraTypeId":43,"included":true,"price":0,"description":"Selling your home","priority":0,"additionalText":null,"static":false},{"extraTypeId":44,"included":true,"price":0,"description":"Site clearance and building fees","priority":0,"additionalText":null,"static":false},{"extraTypeId":48,"included":true,"price":0,"description":"UK call centres","priority":0,"additionalText":null,"static":false},{"extraTypeId":5,"included":true,"price":0,"description":"Alternative accommodation","priority":0,"additionalText":null,"static":false},{"extraTypeId":41,"included":true,"price":0,"description":"Replacement locks cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":10,"included":true,"price":0,"description":"Damage from emergency entries","priority":0,"additionalText":null,"static":false},{"extraTypeId":37,"included":true,"price":0,"description":"Owner's liability cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":46,"included":true,"price":0,"description":"Trace and access cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":6,"included":true,"price":0,"description":"Bicycle cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":50,"included":true,"price":0,"description":"Sports and Camping Equipment","priority":0,"additionalText":null,"static":false},{"extraTypeId":36,"included":true,"price":0,"description":"Office equipment","priority":0,"additionalText":null,"static":false},{"extraTypeId":9,"included":true,"price":0,"description":"Credit card cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":15,"included":true,"price":0,"description":"Frozen food cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":16,"included":true,"price":0,"description":"Garden cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":18,"included":true,"price":0,"description":"Guests' belongings cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":31,"included":true,"price":0,"description":"Money cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":7,"included":true,"price":0,"description":"Contents at university/college","priority":0,"additionalText":null,"static":false},{"extraTypeId":45,"included":true,"price":0,"description":"Tenant's liability cover","priority":0,"additionalText":null,"static":false},{"extraTypeId":22,"included":true,"price":0,"description":"Items in garage cover","priority":0,"additionalText":null,"static":false}],"monthlyPaymentsDeposit":36.31,"monthlyPrice":13.73,"numberOfMonthlyPayments":11,"retrievalPassword":null,"retrievalReference":"JS50143818","contentsSumInsured":"75000","buildingsSumInsured":"500000","coverTypeId":1,"easyCheckoutDeepLink":null,"underwriter":"Policy Expert Home Select"},"brandName":"Policy Expert","brandLogo":"https://www.moneysupermarket.com/home-insurance/img/logo/polexhome.gif","brandPhoneNumber":"0844 776 0672","brandHasMobileOptimisedSite":false,"callCentreHoursMonFri":"Monday to Thursday 9am - 8pm,  Friday 9am - 6pm, Saturday 9am - 2pm, Sunday Closed","callCentreHoursSat":null,"callCentreHoursSun":null,"error":null,"legacyBrandId":1366,"ratings":[{"name":"claims_experience_score","score":4},{"name":"number_of_claims_experience_reviews","score":112},{"name":"quality_score","score":85},{"name":"legal_cover","score":4},{"name":"accidental_damage_buildings","score":4},{"name":"accidental_damage_contents","score":5},{"name":"home_emergency_cover","score":4}],"strapline":"You could win in the Policy Expert prize draw T&Cs apply","decal":"special_offer","highlights":"Policy Expert is an independent broker that aims to tailor cover to individual specifications","topTip":null,"apply":{"active":true,"desktop":true,"mobile":true,"easyCheckout":false},"preferToPhone":{"desktop":true,"mobile":false,"requiresDeepLink":false},"created":"2015-06-11T19:16:44.496Z","expiry":"2015-06-22T00:00:00.000Z"}],"additionalData":null},null,4);
 
-                $scope.enquiry = JSON.stringify({
+
+
+
+                $scope.enquiryRaw = {
                     "payload": {
                         "property": {
                             "propertyTypeId": 1,
@@ -293,9 +398,14 @@
                                 "occupationId": 27,
                                 "employmentStatus": 3
                             },
-                            "ukResidentSinceBirth": true}}});
+                            "ukResidentSinceBirth": true}}};
+
+                $scope.enquiryPretty = JSON.stringify($scope.enquiryRaw, null, 4);
+                $scope.enquiry = JSON.stringify($scope.enquiryRaw);
 
             }]);
+
+
 
     (function($) {
         $.QueryString = (function(a) {
@@ -310,6 +420,9 @@
             return b;
         })(window.location.search.substr(1).split('&'))
     })(jQuery);
+
+
+
 </script>
 
 </body>

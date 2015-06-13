@@ -104,8 +104,8 @@
                     <table>
                         <tr data-ng-repeat="result in results.results">
                             <td><img data-ng-src="result.brandLogo"/> </td>
-                            <td>{{results.brandName}} </td>
-                            <td>{{results.quote.annualPrice}}</td>
+                            <td>{{result.brandName}} </td>
+                            <td>{{result.quote.annualPrice}}</td>
                         </tr>
                     </table>
                 </div>
@@ -152,7 +152,7 @@
                 $scope.getResults = function(url) {
                     $http.get(url).
                             success(function(data, status, headers, config) {
-                                $scope.results = data;
+                                $scope.results = data.results;
                                 if(data.providers.inProgress.length > 0) {
                                     $timeout( function(){ $scope.getResults(url); }, 5000)
                                 }
